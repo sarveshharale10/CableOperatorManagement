@@ -29,7 +29,7 @@ class ContainerFrame extends JFrame{
 		add(tabbedPane);
 
 		pack();
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
 

@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import java.sql.*;
+import java.util.*;
 
 class CustomerPanel extends JPanel implements ActionListener{
 	JLabel lblSearchBy;
@@ -11,6 +13,8 @@ class CustomerPanel extends JPanel implements ActionListener{
 	JButton btnSearch,btnRegister,btnUpdate;
 	JScrollPane scrollPane;
 	JTable table;
+	Connection conn;
+	Statement st;
 
 	RegisterCustomerDialog registerCustomerDialog;
 
@@ -21,9 +25,30 @@ class CustomerPanel extends JPanel implements ActionListener{
 		btnSearch = new JButton("Search");
 		btnRegister = new JButton("Register");
 		btnUpdate = new JButton("Update");
-		String[][] data = null;
+
+		conn = Db.getConnection();
+		Vector<Vector<String>> data = new Vector<Vector<String>>();
+		try{
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery("select * from customer");
+
+			while(rs.next()){
+				Vector<String> row = new Vector<String>();
+				row.add(rs.getString(1));
+				row.add(rs.getString(2));
+				row.add(rs.getString(3));
+				row.add(rs.getString(4));
+				row.add(rs.getString(5));
+				data.add(row);
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+
+		Vector<String> columns = new Vector<String>(Arrays.asList(cbFields));
+
 		table = new JTable();
-        table.setModel(new DefaultTableModel(data,cbFields){
+        table.setModel(new DefaultTableModel(data,columns){
             public boolean isCellEditable(int row,int column){
                 return false;
             }
@@ -32,15 +57,39 @@ class CustomerPanel extends JPanel implements ActionListener{
 
         registerCustomerDialog = new RegisterCustomerDialog();
 
-		setLayout(new FlowLayout());
+		setLayout(new GridBagLayout());
+		GridBagConstraints gc = new GridBagConstraints();
 
-		add(lblSearchBy);
-		add(cbField);
-		add(txtSearch);
-		add(btnSearch);
-		add(btnRegister);
-		add(btnUpdate);
-		add(scrollPane);
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.fill = GridBagConstraints.BOTH;
+		gc.insets = new Insets(10,10,10,10);
+		add(lblSearchBy,gc);
+
+		gc.gridx = 1;
+		gc.gridy = 0;
+		add(cbField,gc);
+
+		gc.gridx = 2;
+		gc.gridy = 0;
+		add(txtSearch,gc);
+
+		gc.gridx = 3;
+		gc.gridy = 0;
+		add(btnSearch,gc);
+
+		gc.gridx = 4;
+		gc.gridy = 0;
+		add(btnRegister,gc);
+
+		gc.gridx = 5;
+		gc.gridy = 0;
+		add(btnUpdate,gc);
+
+		gc.gridx = 0;
+		gc.gridy = 1;
+		gc.gridwidth = 6;
+		add(scrollPane,gc);
 
 		btnRegister.addActionListener(this);
 	}
