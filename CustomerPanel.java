@@ -12,7 +12,10 @@ class CustomerPanel extends JPanel implements ActionListener{
 	String[] cbFields = {"Customer No","Customer Name","Address","Contact No","Monthly Charge"};
 	JButton btnSearch,btnRegister,btnUpdate;
 	JScrollPane scrollPane;
+	
 	JTable table;
+	DefaultTableModel customerModel;
+
 	Connection conn;
 	Statement st;
 
@@ -47,12 +50,10 @@ class CustomerPanel extends JPanel implements ActionListener{
 
 		Vector<String> columns = new Vector<String>(Arrays.asList(cbFields));
 
-		table = new JTable();
-        table.setModel(new DefaultTableModel(data,columns){
-            public boolean isCellEditable(int row,int column){
-                return false;
-            }
-        });
+		customerModel = CustomerTableModelFactory.getInstance();
+		customerModel.setDataVector(data,columns);
+		table = new JTable(customerModel);
+
         scrollPane = new JScrollPane(table);
 
         registerCustomerDialog = new RegisterCustomerDialog();
