@@ -20,6 +20,7 @@ class CustomerPanel extends JPanel implements ActionListener{
 	Statement st;
 
 	RegisterCustomerDialog registerCustomerDialog;
+	UpdateCustomerDialog updateCustomerDialog;
 
 	CustomerPanel(){
 		lblSearchBy = new JLabel("Search By:");
@@ -57,6 +58,7 @@ class CustomerPanel extends JPanel implements ActionListener{
         scrollPane = new JScrollPane(table);
 
         registerCustomerDialog = new RegisterCustomerDialog();
+        updateCustomerDialog = new UpdateCustomerDialog();
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
@@ -93,6 +95,7 @@ class CustomerPanel extends JPanel implements ActionListener{
 		add(scrollPane,gc);
 
 		btnRegister.addActionListener(this);
+		btnUpdate.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e){
@@ -100,6 +103,16 @@ class CustomerPanel extends JPanel implements ActionListener{
 
 		if(src.equals(btnRegister)){
 			registerCustomerDialog.setVisible(true);
+		}
+		else if(src.equals(btnUpdate)){
+			int selectedRowIndex = table.getSelectedRow();
+			if(selectedRowIndex == -1){
+				JOptionPane.showMessageDialog(this,"Please Select a Row","Error",JOptionPane.ERROR_MESSAGE);
+			}
+			else{
+				updateCustomerDialog.setSelectedRowIndex(selectedRowIndex);
+				updateCustomerDialog.setVisible(true);
+			}
 		}
 	}
 }

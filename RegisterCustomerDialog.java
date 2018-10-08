@@ -40,7 +40,6 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 		conn = Db.getConnection();
 		try{
 			st = conn.prepareStatement("insert into customer values(?,?,?,?,?,?)");
-			System.out.println("Statement created");
 		}catch(Exception e){}
 
 		add(lblName);
@@ -81,7 +80,7 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 				st.setInt(6,dueAmount);
 				st.executeUpdate();
 
-				customerModel.addRow(new Object[]{customerNo,customerName,address,contactNo,monthlyCharge});
+				customerModel.addRow(new String[]{new Integer(customerNo).toString(),customerName,address,contactNo,new Integer(monthlyCharge).toString()});
 
 				JOptionPane.showMessageDialog(this,"New Customer Registered");
 
