@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.table.*;
 import java.sql.*;
 import java.util.*;
@@ -96,6 +97,24 @@ class CustomerPanel extends JPanel implements ActionListener{
 
 		btnRegister.addActionListener(this);
 		btnUpdate.addActionListener(this);
+
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+			public void insertUpdate(DocumentEvent e){
+				updateTable();
+			}
+
+			public void removeUpdate(DocumentEvent e){
+				updateTable();
+			}
+
+			public void changedUpdate(DocumentEvent e){}
+
+			void updateTable(){
+				TableRowSorter sorter = new TableRowSorter(customerModel);
+				sorter.setRowFilter(RowFilter.regexFilter("(?i).*"+txtSearch.getText()+".*"));
+				table.setRowSorter(sorter);
+			}
+		});
 	}
 
 	public void actionPerformed(ActionEvent e){
@@ -106,6 +125,8 @@ class CustomerPanel extends JPanel implements ActionListener{
 		}
 		else if(src.equals(btnUpdate)){
 			int selectedRowIndex = table.getSelectedRow();
+			selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
+			System.out.println(selectedRowIndex);
 			if(selectedRowIndex == -1){
 				JOptionPane.showMessageDialog(this,"Please Select a Row","Error",JOptionPane.ERROR_MESSAGE);
 			}
@@ -113,6 +134,9 @@ class CustomerPanel extends JPanel implements ActionListener{
 				updateCustomerDialog.setSelectedRowIndex(selectedRowIndex);
 				updateCustomerDialog.setVisible(true);
 			}
+		}
+		else if(src.equals(btnSearch)){
+			
 		}
 	}
 }
