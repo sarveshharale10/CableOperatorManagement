@@ -9,9 +9,8 @@ import java.util.*;
 class CustomerPanel extends JPanel implements ActionListener{
 	JLabel lblSearchBy;
 	JTextField txtSearch;
-	JComboBox cbField;
 	String[] cbFields = {"Customer No","Customer Name","Address","Contact No","Monthly Charge"};
-	JButton btnSearch,btnRegister,btnUpdate;
+	JButton btnRegister,btnUpdate;
 	JScrollPane scrollPane;
 	
 	JTable table;
@@ -24,10 +23,8 @@ class CustomerPanel extends JPanel implements ActionListener{
 	UpdateCustomerDialog updateCustomerDialog;
 
 	CustomerPanel(){
-		lblSearchBy = new JLabel("Search By:");
+		lblSearchBy = new JLabel("Search: ");
 		txtSearch = new JTextField(20);
-		cbField = new JComboBox(cbFields);
-		btnSearch = new JButton("Search");
 		btnRegister = new JButton("Register");
 		btnUpdate = new JButton("Update");
 
@@ -72,27 +69,19 @@ class CustomerPanel extends JPanel implements ActionListener{
 
 		gc.gridx = 1;
 		gc.gridy = 0;
-		add(cbField,gc);
+		add(txtSearch,gc);
 
 		gc.gridx = 2;
 		gc.gridy = 0;
-		add(txtSearch,gc);
-
-		gc.gridx = 3;
-		gc.gridy = 0;
-		add(btnSearch,gc);
-
-		gc.gridx = 4;
-		gc.gridy = 0;
 		add(btnRegister,gc);
 
-		gc.gridx = 5;
+		gc.gridx = 3;
 		gc.gridy = 0;
 		add(btnUpdate,gc);
 
 		gc.gridx = 0;
 		gc.gridy = 1;
-		gc.gridwidth = 6;
+		gc.gridwidth = 4;
 		add(scrollPane,gc);
 
 		btnRegister.addActionListener(this);
@@ -126,7 +115,6 @@ class CustomerPanel extends JPanel implements ActionListener{
 		else if(src.equals(btnUpdate)){
 			int selectedRowIndex = table.getSelectedRow();
 			selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
-			System.out.println(selectedRowIndex);
 			if(selectedRowIndex == -1){
 				JOptionPane.showMessageDialog(this,"Please Select a Row","Error",JOptionPane.ERROR_MESSAGE);
 			}
@@ -134,9 +122,6 @@ class CustomerPanel extends JPanel implements ActionListener{
 				updateCustomerDialog.setSelectedRowIndex(selectedRowIndex);
 				updateCustomerDialog.setVisible(true);
 			}
-		}
-		else if(src.equals(btnSearch)){
-			
 		}
 	}
 }

@@ -2,8 +2,9 @@ import javax.swing.*;
 
 class ContainerFrame extends JFrame{
 	JTabbedPane tabbedPane;
-	JPanel customerPanel,collection,complaint;
+	JPanel customerPanel,collectionPanel,complaint;
 	ContainerFrame(){
+		super("Cable Operator Management");
 		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
 			if ("Nimbus".equals(info.getName())) {
 				try{
@@ -17,13 +18,12 @@ class ContainerFrame extends JFrame{
 		JTabbedPane tabbedPane = new JTabbedPane();
 
 		customerPanel = new CustomerPanel();
-		collection = new JPanel();
-		collection.add(new JLabel("Collection Tab"));
+		collectionPanel = new CollectionPanel();
 		complaint = new JPanel();
 		complaint.add(new JLabel("Complaint Tab"));
 
 		tabbedPane.add("Customer",customerPanel);
-		tabbedPane.add("Collection",collection);
+		tabbedPane.add("Collection",collectionPanel);
 		tabbedPane.add("Complaints",complaint);
 
 		add(tabbedPane);
