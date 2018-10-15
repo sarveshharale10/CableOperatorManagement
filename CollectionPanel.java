@@ -9,7 +9,7 @@ class CollectionPanel extends JPanel implements ActionListener{
 	JTextField txtCustomerNo,txtCustomerName,txtDue,txtAmount,txtDate;
 	JButton btnSave,btnViewPaymentHistory;
 	JScrollPane scrollPane;
-
+sad;gjahsglajkhglksjfghlkfjhalsdkfjhasdlkjfhasdlkjfh
 	JTable table;
 	DefaultTableModel customerModel;
 
