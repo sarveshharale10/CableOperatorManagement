@@ -25,8 +25,8 @@ class CustomerPanel extends JPanel implements ActionListener{
 	CustomerPanel(){
 		lblSearchBy = new JLabel("Search: ");
 		txtSearch = new JTextField(20);
-		btnRegister = new JButton("Register");
-		btnUpdate = new JButton("Update");
+		btnRegister = new JButton("Register Customer");
+		btnUpdate = new JButton("Update Customer Details");
 
 		conn = Db.getConnection();
 		Vector<Vector<String>> data = new Vector<Vector<String>>();

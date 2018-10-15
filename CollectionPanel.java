@@ -5,30 +5,20 @@ import javax.swing.table.*;
 import java.sql.*;
 
 class CollectionPanel extends JPanel implements ActionListener{
-	JLabel lblCustomerNo,lblCustomerName,lblDue,lblAmount,lblDate;
-	JTextField txtCustomerNo,txtCustomerName,txtDue,txtAmount,txtDate;
-	JButton btnSave,btnViewPaymentHistory;
+	JLabel lblSearch;
+	JTextField txtSearch;
+	JButton btnAddPayment,btnViewPaymentHistory;
 	JScrollPane scrollPane;
-sad;gjahsglajkhglksjfghlkfjhalsdkfjhasdlkjfhasdlkjfh
 	JTable table;
 	DefaultTableModel customerModel;
 
 	PaymentHistoryDialog paymentHistoryDialog;
 
 	CollectionPanel(){
-		lblCustomerNo = new JLabel("Customer No:",SwingConstants.RIGHT);
-		lblCustomerName = new JLabel("Customer Name:",SwingConstants.RIGHT);
-		lblDue = new JLabel("Due Amount:",SwingConstants.RIGHT);
-		lblAmount = new JLabel("Amount Received:",SwingConstants.RIGHT);
-		lblDate = new JLabel("Date Received:",SwingConstants.RIGHT);
+		lblSearch = new JLabel("Search:",SwingConstants.RIGHT);
+		txtSearch = new JTextField(20);
 
-		txtCustomerNo = new JTextField(20);
-		txtCustomerName = new JTextField(20);
-		txtDue = new JTextField(20);
-		txtAmount = new JTextField(20);
-		txtDate = new JTextField(20); //Just for now
-
-		btnSave = new JButton("Save");
+		btnAddPayment = new JButton("Add Payment");
 		btnViewPaymentHistory = new JButton("View Payment History");
 
 		customerModel = CustomerTableModelFactory.getInstance();
@@ -45,54 +35,22 @@ sad;gjahsglajkhglksjfghlkfjhalsdkfjhasdlkjfhasdlkjfh
 		gc.gridy = 0;
 		gc.insets = new Insets(10,10,10,10);
 		gc.fill = GridBagConstraints.BOTH;
-		add(lblCustomerNo,gc);
+		add(lblSearch,gc);
 
 		gc.gridx = 1;
 		gc.gridy = 0;
-		add(txtCustomerNo,gc);
+		add(txtSearch,gc);
 
 		gc.gridx = 2;
 		gc.gridy = 0;
-		add(lblCustomerName,gc);
+		add(btnAddPayment,gc);
 
 		gc.gridx = 3;
 		gc.gridy = 0;
-		add(txtCustomerName,gc);
-
-		gc.gridx = 0;
-		gc.gridy = 1;
-		add(lblDue,gc);
-
-		gc.gridx = 1;
-		gc.gridy = 1;
-		add(txtDue,gc);
-
-		gc.gridx = 2;
-		gc.gridy = 1;
-		add(lblAmount,gc);
-
-		gc.gridx = 3;
-		gc.gridy = 1;
-		add(txtAmount,gc);
-
-		gc.gridx = 0;
-		gc.gridy = 2;
-		add(lblDate,gc);
-
-		gc.gridx = 1;
-		gc.gridy = 2;
-		add(txtDate,gc);
-
-		gc.gridx = 2;
-		gc.gridy = 2;
-		add(btnSave,gc);
-
-		gc.gridx = 3;
-		gc.gridy = 2;
 		add(btnViewPaymentHistory,gc);
 
 		gc.gridx = 0;
-		gc.gridy = 3;
+		gc.gridy = 1;
 		gc.gridwidth = 4;
 		add(scrollPane,gc);
 
@@ -103,7 +61,7 @@ sad;gjahsglajkhglksjfghlkfjhalsdkfjhasdlkjfhasdlkjfh
 	public void actionPerformed(ActionEvent e){
 		Object src = e.getSource();
 
-		if(src.equals(btnSave)){
+		if(src.equals(btnAddPayment)){
 
 		}
 		else if(src.equals(btnViewPaymentHistory)){

@@ -6,7 +6,7 @@ class ContainerFrame extends JFrame{
 	ContainerFrame(){
 		super("Cable Operator Management");
 		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-			if ("Nimbus".equals(info.getName())) {
+			if ("Windows".equals(info.getName())) {
 				try{
 	            	UIManager.setLookAndFeel(info.getClassName());
 	            	break;
