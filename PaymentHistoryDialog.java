@@ -20,11 +20,25 @@ class PaymentHistoryDialog extends JDialog{
 		lblCustomerName = new JLabel("Customer Name:");
 		lblCustomerNameValue = new JLabel();
 
-		setLayout(new GridLayout(2,2));
+		setLayout(new GridBagLayout());
 
-		add(lblCustomerNo);
-		add(lblCustomerNoValue);
-		add(lblCustomerName);
+		GridBagConstraints gc = new GridBagConstraints();
+
+		gc.gridx = 0;
+		gc.gridy = 0;
+		Insets insets = new Insets(10,10,10,10);
+		add(lblCustomerNo,gc);
+
+		gc.gridx = 1;
+		gc.gridy = 0;		
+		add(lblCustomerNoValue,gc);
+
+		gc.gridx = 0;
+		gc.gridy = 1;
+		add(lblCustomerName,gc);
+
+		gc.gridx = 1;
+		gc.gridy = 1;
 		add(lblCustomerNameValue);
 	}
 
