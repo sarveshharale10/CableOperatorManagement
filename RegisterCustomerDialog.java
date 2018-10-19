@@ -35,7 +35,7 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 		btnRegister = new JButton("Register");
 		btnCancel = new JButton("Cancel");
 
-		customerModel = CustomerTableModelFactory.getInstance();
+		customerModel = CustomerViewModelFactory.getInstance();
 
 		conn = Db.getConnection();
 		try{

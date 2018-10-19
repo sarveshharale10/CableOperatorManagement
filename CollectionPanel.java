@@ -21,7 +21,7 @@ class CollectionPanel extends JPanel implements ActionListener{
 		btnAddPayment = new JButton("Add Payment");
 		btnViewPaymentHistory = new JButton("View Payment History");
 
-		customerModel = CustomerTableModelFactory.getInstance();
+		customerModel = CustomerViewModelFactory.getInstance();
 		table = new JTable(customerModel);
 		scrollPane = new JScrollPane(table);
 

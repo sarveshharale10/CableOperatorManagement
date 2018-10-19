@@ -49,7 +49,7 @@ class CustomerPanel extends JPanel implements ActionListener{
 
 		Vector<String> columns = new Vector<String>(Arrays.asList(cbFields));
 
-		customerModel = CustomerTableModelFactory.getInstance();
+		customerModel = CustomerViewModelFactory.getInstance();
 		customerModel.setDataVector(data,columns);
 		table = new JTable(customerModel);
 

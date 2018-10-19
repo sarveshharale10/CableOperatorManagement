@@ -2,7 +2,7 @@ import javax.swing.table.*;
 import java.util.*;
 import java.sql.*;
 
-class CustomerTableModelFactory{
+class CustomerViewModelFactory{
 
 	static DefaultTableModel tableModel;
 

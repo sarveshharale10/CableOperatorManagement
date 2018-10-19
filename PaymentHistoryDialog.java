@@ -13,7 +13,7 @@ class PaymentHistoryDialog extends JDialog{
 	int selectedRowIndex;
 
 	PaymentHistoryDialog(){
-		tableModel = CustomerTableModelFactory.getInstance();
+		tableModel = CustomerViewModelFactory.getInstance();
 
 		lblCustomerNo = new JLabel("Customer No:");
 		lblCustomerNoValue = new JLabel();
@@ -39,7 +39,7 @@ class PaymentHistoryDialog extends JDialog{
 
 		gc.gridx = 1;
 		gc.gridy = 1;
-		add(lblCustomerNameValue);
+		add(lblCustomerNameValue,gc);
 	}
 
 	void setSelectedRowIndex(int selectedRowIndex){

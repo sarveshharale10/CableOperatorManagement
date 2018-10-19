@@ -39,7 +39,7 @@ class UpdateCustomerDialog extends JDialog implements ActionListener{
 		btnUpdate = new JButton("Update");
 		btnCancel = new JButton("Cancel");
 
-		customerModel = CustomerTableModelFactory.getInstance();
+		customerModel = CustomerViewModelFactory.getInstance();
 
 		conn = Db.getConnection();
 		try{
