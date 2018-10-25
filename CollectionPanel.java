@@ -18,6 +18,7 @@ class CollectionPanel extends JPanel implements ActionListener{
 	DefaultTableModel collectionModel;
 	CustomerDao customerDao;
 
+	AddPaymentDialog addPaymentDialog;
 	PaymentHistoryDialog paymentHistoryDialog;
 
 	CollectionPanel(){
@@ -38,23 +39,7 @@ class CollectionPanel extends JPanel implements ActionListener{
 		table = new JTable(collectionModel);
 		scrollPane = new JScrollPane(table);
 
-		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
-			public void insertUpdate(DocumentEvent e){
-				updateTable();
-			}
-
-			public void removeUpdate(DocumentEvent e){
-				updateTable();
-			}
-
-			public void changedUpdate(DocumentEvent e){}
-
-			void updateTable(){
-				TableRowSorter sorter = new TableRowSorter(collectionModel);
-				sorter.setRowFilter(RowFilter.regexFilter("(?i).*"+txtSearch.getText()+".*"));
-				table.setRowSorter(sorter);
-			}
-		});
+		txtSearch.getDocument().addDocumentListener(new SearchFilter(txtSearch, collectionModel, table));
 
 		setLayout(new GridBagLayout());
 
@@ -84,25 +69,27 @@ class CollectionPanel extends JPanel implements ActionListener{
 		add(scrollPane,gc);
 
 		btnViewPaymentHistory.addActionListener(this);
+		btnAddPayment.addActionListener(this);
 
 	}
 
 	public void actionPerformed(ActionEvent e){
 		Object src = e.getSource();
 
-		if(src.equals(btnAddPayment)){
+		int selectedRowIndex = table.getSelectedRow();
+		selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
+		if(selectedRowIndex == -1){
+			JOptionPane.showMessageDialog(this,"Please Select a Row","Error",JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 
+		if(src.equals(btnAddPayment)){
+			addPaymentDialog = new AddPaymentDialog(selectedRowIndex);
+			addPaymentDialog.setVisible(true);
 		}
 		else if(src.equals(btnViewPaymentHistory)){
-			int selectedRowIndex = table.getSelectedRow();
-			selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
-			if(selectedRowIndex == -1){
-				JOptionPane.showMessageDialog(this,"Please Select a Row","Error",JOptionPane.ERROR_MESSAGE);
-			}
-			else{
-				paymentHistoryDialog = new PaymentHistoryDialog(selectedRowIndex);
-				paymentHistoryDialog.setVisible(true);
-			}
+			paymentHistoryDialog = new PaymentHistoryDialog(selectedRowIndex);
+			paymentHistoryDialog.setVisible(true);
 		}
 	}
 }
