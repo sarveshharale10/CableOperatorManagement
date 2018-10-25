@@ -10,9 +10,7 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 	JButton btnRegister,btnCancel;
 	
 	DefaultTableModel customerModel;
-
-	Connection conn;
-	PreparedStatement st;
+	CustomerDao customerDao;
 
 	RegisterCustomerDialog(){
 
@@ -36,11 +34,7 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 		btnCancel = new JButton("Cancel");
 
 		customerModel = CustomerViewModelFactory.getInstance();
-
-		conn = Db.getConnection();
-		try{
-			st = conn.prepareStatement("insert into customer values(?,?,?,?,?,?)");
-		}catch(Exception e){}
+		customerDao = new CustomerDao();
 
 		add(lblName);
 		add(txtName);
@@ -72,13 +66,7 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 			int dueAmount = 0;
 
 			try{
-				st.setInt(1,customerNo);
-				st.setString(2,customerName);
-				st.setString(3,address);
-				st.setString(4,contactNo);
-				st.setInt(5,monthlyCharge);
-				st.setInt(6,dueAmount);
-				st.executeUpdate();
+				customerDao.add(customerNo, customerName, address, contactNo, monthlyCharge, dueAmount);
 
 				customerModel.addRow(new String[]{new Integer(customerNo).toString(),customerName,address,contactNo,new Integer(monthlyCharge).toString()});
 

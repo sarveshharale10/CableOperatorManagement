@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 class AddPaymentDialog{
-	Jlabel lblCustomerNo,lblCustomerName,lblDue,lblAmount;
+	JLabel lblCustomerNo,lblCustomerName,lblDue,lblAmount;
 	JLabel lblCustomerNoValue,lblCustomerNameValue,lblDueValue;
 	JTextField txtAmount;
 

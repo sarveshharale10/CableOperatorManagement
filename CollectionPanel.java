@@ -1,16 +1,22 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.table.*;
 import java.sql.*;
+import java.util.*;
 
 class CollectionPanel extends JPanel implements ActionListener{
 	JLabel lblSearch;
 	JTextField txtSearch;
 	JButton btnAddPayment,btnViewPaymentHistory;
+	String[] columns = {"customerNo","customerName","dueAmount","monthlyCharge","contactNo"};
+	String[] jTableColumns = {"Customer No","Customer Name","Due Amount","Monthly Charge","Contact No"};
+
 	JScrollPane scrollPane;
 	JTable table;
-	DefaultTableModel customerModel;
+	DefaultTableModel collectionModel;
+	CustomerDao customerDao;
 
 	PaymentHistoryDialog paymentHistoryDialog;
 
@@ -21,11 +27,34 @@ class CollectionPanel extends JPanel implements ActionListener{
 		btnAddPayment = new JButton("Add Payment");
 		btnViewPaymentHistory = new JButton("View Payment History");
 
-		customerModel = CustomerViewModelFactory.getInstance();
-		table = new JTable(customerModel);
+		collectionModel = CollectionViewModelFactory.getInstance();
+		customerDao = new CustomerDao();
+
+		Vector<String> columnVector = new Vector<String>(Arrays.asList(jTableColumns));
+
+		Vector<Vector<String>> data = customerDao.getAllWithDue(columns);
+
+		collectionModel.setDataVector(data,columnVector);
+		table = new JTable(collectionModel);
 		scrollPane = new JScrollPane(table);
 
-		paymentHistoryDialog = new PaymentHistoryDialog();
+		txtSearch.getDocument().addDocumentListener(new DocumentListener(){
+			public void insertUpdate(DocumentEvent e){
+				updateTable();
+			}
+
+			public void removeUpdate(DocumentEvent e){
+				updateTable();
+			}
+
+			public void changedUpdate(DocumentEvent e){}
+
+			void updateTable(){
+				TableRowSorter sorter = new TableRowSorter(collectionModel);
+				sorter.setRowFilter(RowFilter.regexFilter("(?i).*"+txtSearch.getText()+".*"));
+				table.setRowSorter(sorter);
+			}
+		});
 
 		setLayout(new GridBagLayout());
 
@@ -67,8 +96,13 @@ class CollectionPanel extends JPanel implements ActionListener{
 		else if(src.equals(btnViewPaymentHistory)){
 			int selectedRowIndex = table.getSelectedRow();
 			selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
-			paymentHistoryDialog.setSelectedRowIndex(selectedRowIndex);
-			paymentHistoryDialog.setVisible(true);
+			if(selectedRowIndex == -1){
+				JOptionPane.showMessageDialog(this,"Please Select a Row","Error",JOptionPane.ERROR_MESSAGE);
+			}
+			else{
+				paymentHistoryDialog = new PaymentHistoryDialog(selectedRowIndex);
+				paymentHistoryDialog.setVisible(true);
+			}
 		}
 	}
 }

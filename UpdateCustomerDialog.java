@@ -11,9 +11,7 @@ class UpdateCustomerDialog extends JDialog implements ActionListener{
 
 	int selectedRowIndex;
 	DefaultTableModel customerModel;
-
-	Connection conn;
-	PreparedStatement st;
+	CustomerDao customerDao;
 
 	UpdateCustomerDialog(){
 		setLayout(new GridLayout(6,2,10,10));
@@ -40,12 +38,7 @@ class UpdateCustomerDialog extends JDialog implements ActionListener{
 		btnCancel = new JButton("Cancel");
 
 		customerModel = CustomerViewModelFactory.getInstance();
-
-		conn = Db.getConnection();
-		try{
-			st = conn.prepareStatement("update customer set customerName = ?,address = ?,contactNo = ?,monthlyCharge = ? where customerNo = ?");
-		}catch(Exception e){}
-
+		customerDao = new CustomerDao();
 
 		add(lblCustomerNo);
 		add(txtCustomerNo);
@@ -78,12 +71,7 @@ class UpdateCustomerDialog extends JDialog implements ActionListener{
 			int customerNo = Integer.parseInt(txtCustomerNo.getText());
 
 			try{
-				st.setString(1,customerName);
-				st.setString(2,address);
-				st.setString(3,contactNo);
-				st.setInt(4,monthlyCharge);
-				st.setInt(5,customerNo);
-				st.executeUpdate();
+				customerDao.update(customerNo, customerName, address, contactNo, monthlyCharge);
 
 				customerModel.removeRow(selectedRowIndex);
 				customerModel.insertRow(selectedRowIndex,new String[]{new Integer(customerNo).toString(),customerName,address,contactNo,new Integer(monthlyCharge).toString()});

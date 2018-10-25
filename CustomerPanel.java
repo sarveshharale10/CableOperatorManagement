@@ -15,9 +15,7 @@ class CustomerPanel extends JPanel implements ActionListener{
 	
 	JTable table;
 	DefaultTableModel customerModel;
-
-	Connection conn;
-	Statement st;
+	CustomerDao customerDao;
 
 	RegisterCustomerDialog registerCustomerDialog;
 	UpdateCustomerDialog updateCustomerDialog;
@@ -28,28 +26,12 @@ class CustomerPanel extends JPanel implements ActionListener{
 		btnRegister = new JButton("Register Customer");
 		btnUpdate = new JButton("Update Customer Details");
 
-		conn = Db.getConnection();
-		Vector<Vector<String>> data = new Vector<Vector<String>>();
-		try{
-			st = conn.createStatement();
-			ResultSet rs = st.executeQuery("select * from customer");
-
-			while(rs.next()){
-				Vector<String> row = new Vector<String>();
-				row.add(rs.getString(1));
-				row.add(rs.getString(2));
-				row.add(rs.getString(3));
-				row.add(rs.getString(4));
-				row.add(rs.getString(5));
-				data.add(row);
-			}
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}
-
 		Vector<String> columns = new Vector<String>(Arrays.asList(cbFields));
 
 		customerModel = CustomerViewModelFactory.getInstance();
+		customerDao = new CustomerDao();
+
+		Vector<Vector<String>> data = customerDao.getAll("customerNo","customerName","address","contactNo","monthlyCharge");
 		customerModel.setDataVector(data,columns);
 		table = new JTable(customerModel);
 

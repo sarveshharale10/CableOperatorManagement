@@ -2,23 +2,40 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import java.util.*;
 
 class PaymentHistoryDialog extends JDialog{
 	JLabel lblCustomerNo,lblCustomerNoValue,lblCustomerName,lblCustomerNameValue;
 	JScrollPane scrollPane;
 
-	DefaultTableModel tableModel;
+	String[] columns = {"Date of Payment","Amount"};
+	Vector<Vector<String>> data;
+	Vector<String> columnVector;
 	JTable table;
+
+	DefaultTableModel customerTableModel,paymentTableModel;
+	PaymentDao paymentDao;
 
 	int selectedRowIndex;
 
-	PaymentHistoryDialog(){
-		tableModel = CustomerViewModelFactory.getInstance();
+	PaymentHistoryDialog(int selectedRowIndex){
+		this.selectedRowIndex = selectedRowIndex;
+
+		customerTableModel = CustomerViewModelFactory.getInstance();
+		paymentTableModel = PaymentViewModelFactory.getInstance();
+		paymentDao = new PaymentDao();
 
 		lblCustomerNo = new JLabel("Customer No:");
-		lblCustomerNoValue = new JLabel();
+		lblCustomerNoValue = new JLabel((String)customerTableModel.getValueAt(selectedRowIndex,0));
 		lblCustomerName = new JLabel("Customer Name:");
-		lblCustomerNameValue = new JLabel();
+		lblCustomerNameValue = new JLabel((String)customerTableModel.getValueAt(selectedRowIndex,1));
+
+		data = paymentDao.getByCustomerNo(Integer.parseInt(lblCustomerNoValue.getText()));
+		columnVector = new Vector<String>(Arrays.asList(columns));
+		paymentTableModel.setDataVector(data,columnVector);
+
+		table = new JTable(paymentTableModel);
+		scrollPane = new JScrollPane(table);
 
 		setLayout(new GridBagLayout());
 
@@ -26,7 +43,7 @@ class PaymentHistoryDialog extends JDialog{
 
 		gc.gridx = 0;
 		gc.gridy = 0;
-		Insets insets = new Insets(10,10,10,10);
+		gc.insets = new Insets(10,10,10,10);
 		add(lblCustomerNo,gc);
 
 		gc.gridx = 1;
@@ -40,12 +57,13 @@ class PaymentHistoryDialog extends JDialog{
 		gc.gridx = 1;
 		gc.gridy = 1;
 		add(lblCustomerNameValue,gc);
-	}
 
-	void setSelectedRowIndex(int selectedRowIndex){
-		this.selectedRowIndex = selectedRowIndex;
-		lblCustomerNoValue.setText((String)tableModel.getValueAt(selectedRowIndex,0));
-		lblCustomerNameValue.setText((String)tableModel.getValueAt(selectedRowIndex,1));
+		gc.gridx = 0;
+		gc.gridy = 2;
+		gc.gridwidth = 2;
+		add(scrollPane,gc);
+
+		pack();
 	}
 
 }
