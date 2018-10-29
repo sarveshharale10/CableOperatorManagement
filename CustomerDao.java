@@ -60,6 +60,7 @@ class CustomerDao{
         Vector<String> row = new Vector<String>();
         try{
             ResultSet rs = st.executeQuery("select * from customer where customerNo="+customerNo);
+            rs.next();
 			row.add(rs.getString(1));
 			row.add(rs.getString(2));
 			row.add(rs.getString(3));

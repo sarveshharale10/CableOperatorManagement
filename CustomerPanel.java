@@ -68,7 +68,7 @@ class CustomerPanel extends JPanel implements ActionListener{
 
 		btnRegister.addActionListener(this);
 		btnUpdate.addActionListener(this);
-		txtSearch.getDocument().addDocumentListener(new SearchFilter(txtSearch, customerModel, table));
+		txtSearch.getDocument().addDocumentListener(new SearchFilter(txtSearch,table));
 		
 	}
 

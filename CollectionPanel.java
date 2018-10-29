@@ -39,7 +39,7 @@ class CollectionPanel extends JPanel implements ActionListener{
 		table = new JTable(collectionModel);
 		scrollPane = new JScrollPane(table);
 
-		txtSearch.getDocument().addDocumentListener(new SearchFilter(txtSearch, collectionModel, table));
+		txtSearch.getDocument().addDocumentListener(new SearchFilter(txtSearch,table));
 
 		setLayout(new GridBagLayout());
 

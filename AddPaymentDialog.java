@@ -36,8 +36,6 @@ class AddPaymentDialog extends JDialog implements ActionListener{
         lblCustomerNameValue = new JLabel((String)collectionModel.getValueAt(selectedRowIndex,1));
         lblDueAmountValue = new JLabel((String)collectionModel.getValueAt(selectedRowIndex,2));
 
-        
-
         setLayout(new GridBagLayout());
 
         GridBagConstraints gc = new GridBagConstraints();

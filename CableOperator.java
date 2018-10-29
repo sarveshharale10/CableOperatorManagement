@@ -2,7 +2,7 @@ import javax.swing.*;
 
 class ContainerFrame extends JFrame{
 	JTabbedPane tabbedPane;
-	JPanel customerPanel,collectionPanel,complaint;
+	JPanel customerPanel,collectionPanel,complaintPanel;
 	ContainerFrame(){
 		super("Cable Operator Management");
 		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
@@ -19,12 +19,11 @@ class ContainerFrame extends JFrame{
 
 		customerPanel = new CustomerPanel();
 		collectionPanel = new CollectionPanel();
-		complaint = new JPanel();
-		complaint.add(new JLabel("Complaint Tab"));
+		complaintPanel = new ComplaintPanel();
 
 		tabbedPane.add("Customer",customerPanel);
 		tabbedPane.add("Collection",collectionPanel);
-		tabbedPane.add("Complaints",complaint);
+		tabbedPane.add("Complaints",complaintPanel);
 
 		add(tabbedPane);
 

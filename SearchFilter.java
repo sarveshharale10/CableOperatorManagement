@@ -5,15 +5,13 @@ import javax.swing.table.*;
 
 class SearchFilter implements DocumentListener{
     JTextField txtSearch;
-    DefaultTableModel model;
     JTable table;
     TableRowSorter sorter;
 
-    SearchFilter(JTextField txtSearch,DefaultTableModel model,JTable table){
+    SearchFilter(JTextField txtSearch,JTable table){
         this.txtSearch = txtSearch;
-        this.model = model;
         this.table = table;
-        sorter = new TableRowSorter(model);
+        sorter = new TableRowSorter(table.getModel());
     }
 
     public void insertUpdate(DocumentEvent e){
