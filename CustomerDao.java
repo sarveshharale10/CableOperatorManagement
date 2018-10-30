@@ -100,4 +100,12 @@ class CustomerDao{
             System.err.println(e);
         }
     }
+
+    void updateDues(){
+        try{
+            st.executeUpdate("update customer set dueAmount = dueAmount + monthlyCharge");
+        }catch(Exception e){
+            System.err.println(e);
+        }
+    }
 }

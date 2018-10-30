@@ -97,7 +97,13 @@ class AddPaymentDialog extends JDialog implements ActionListener{
             int amount = Integer.parseInt(txtAmount.getText());
             paymentDao.addPayment(customerNo,date,amount);
             int newDue = Integer.parseInt(collectionModel.getValueAt(selectedRowIndex,2).toString()) - amount;
-            collectionModel.setValueAt(newDue,selectedRowIndex,2);
+            if(newDue == 0){
+                collectionModel.removeRow(selectedRowIndex);
+            }
+            else{
+                collectionModel.setValueAt(Integer.toString(newDue),selectedRowIndex,2);
+            }
+
             JOptionPane.showMessageDialog(this,"Payment Added Successfully");
         }
         else if(src.equals(btnCancel)){

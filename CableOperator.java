@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.event.*;
+import java.util.*;
 
 class ContainerFrame extends JFrame implements ChangeListener{
 	JTabbedPane tabbedPane;
@@ -7,7 +8,7 @@ class ContainerFrame extends JFrame implements ChangeListener{
 	ContainerFrame(){
 		super("Cable Operator Management - Customer");
 		for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-			if ("Windows".equals(info.getName())) {
+			if ("Nimbus".equals(info.getName())) {
 				try{
 	            	UIManager.setLookAndFeel(info.getClassName());
 	            	break;
@@ -60,6 +61,14 @@ class ContainerFrame extends JFrame implements ChangeListener{
 
 class CableOperator{
 	public static void main(String[] args) {
+
+		Calendar now = Calendar.getInstance();
+		int currentMonth = now.get(Calendar.MONTH) + 1;
+		MonthDao monthDao = new MonthDao();
+		if(currentMonth != monthDao.getMonth()){
+			monthDao.setMonth(currentMonth);
+			new CustomerDao().updateDues();
+		}
 		new ContainerFrame();
 	}
 }
