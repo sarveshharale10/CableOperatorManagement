@@ -17,6 +17,8 @@ class AddPaymentDialog extends JDialog implements ActionListener{
     int selectedRowIndex;
 
     AddPaymentDialog(int selectedRowIndex){
+        setTitle("Add Payment");
+
         this.selectedRowIndex = selectedRowIndex;
 
         lblCustomerNo = new JLabel("Customer No:");

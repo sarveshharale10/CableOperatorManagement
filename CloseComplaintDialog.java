@@ -15,6 +15,7 @@ class CloseComplaintDialog extends JDialog implements ActionListener{
     ComplaintDao complaintDao;
 
     CloseComplaintDialog(int selectedRowIndex){
+        setTitle("Close Complaint");
         this.selectedRowIndex = selectedRowIndex;
 
         lblComplaintNo = new JLabel("Complaint No:",SwingConstants.RIGHT);

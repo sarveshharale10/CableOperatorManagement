@@ -82,7 +82,6 @@ class CollectionPanel extends JPanel implements ActionListener{
 			JOptionPane.showMessageDialog(this,"Please Select a Row","Error",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-
 		if(src.equals(btnAddPayment)){
 			addPaymentDialog = new AddPaymentDialog(selectedRowIndex);
 			addPaymentDialog.setVisible(true);

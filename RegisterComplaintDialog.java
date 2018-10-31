@@ -16,6 +16,7 @@ class RegisterComplaintDialog extends JDialog implements ActionListener{
     CustomerDao customerDao;
 
     RegisterComplaintDialog(){
+        setTitle("Register Complaint");
 
         lblCustomerNo = new JLabel("Customer No:",SwingConstants.RIGHT);
         lblDescription = new JLabel("Description:",SwingConstants.LEFT);

@@ -14,6 +14,7 @@ class UpdateCustomerDialog extends JDialog implements ActionListener{
 	CustomerDao customerDao;
 
 	UpdateCustomerDialog(){
+		setTitle("Update Customer Details");
 		setLayout(new GridLayout(6,2,10,10));
 		JPanel panel = (JPanel)getContentPane();
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

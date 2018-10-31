@@ -19,9 +19,10 @@ class PaymentHistoryDialog extends JDialog{
 	int selectedRowIndex;
 
 	PaymentHistoryDialog(int selectedRowIndex){
+		setTitle("View Payment History");
 		this.selectedRowIndex = selectedRowIndex;
 
-		customerTableModel = CustomerViewModelFactory.getInstance();
+		customerTableModel = CollectionViewModelFactory.getInstance();
 		paymentTableModel = PaymentViewModelFactory.getInstance();
 		paymentDao = new PaymentDao();
 

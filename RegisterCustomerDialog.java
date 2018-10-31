@@ -13,7 +13,7 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 	CustomerDao customerDao;
 
 	RegisterCustomerDialog(){
-
+		setTitle("Register Customer");
 		setLayout(new GridLayout(5,2,10,10));
 		JPanel panel = (JPanel)getContentPane();
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -68,7 +68,7 @@ class RegisterCustomerDialog extends JDialog implements ActionListener{
 			try{
 				customerDao.add(customerNo, customerName, address, contactNo, monthlyCharge, dueAmount);
 
-				customerModel.addRow(new String[]{new Integer(customerNo).toString(),customerName,address,contactNo,new Integer(monthlyCharge).toString()});
+				customerModel.addRow(new String[]{Integer.toString(customerNo),customerName,address,contactNo,Integer.toString(monthlyCharge)});
 
 				JOptionPane.showMessageDialog(this,"New Customer Registered");
 
